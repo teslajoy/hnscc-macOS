@@ -123,23 +123,3 @@ adds <- as.data.frame(adds, stringsAsfactors = F)
 colnames(adds) <- "sum"
 zero.reads.exonnames <- rownames(adds)[which(adds == 0)]
 length(zero.reads.exonnames) #1881
-
-
-# brainstorming ----------------------------------------------------------
-# chr <- unlist(lapply(exon.prog.files[[1]][,1], function(x) gsub(":|_", "", substr(x, 4 , 5))))
-# start <- unlist(lapply(exon.prog.files[[1]][,1], function(x) gsub("^.*\\:", "", gsub("\\-.*", "", x))))
-# end <- unlist(lapply(exon.prog.files[[1]][,1], function(x) gsub("\\:.*", "", gsub("^.*\\-", "", substr(x, 1, nchar(x) - 1)))))
-# upordown <- unlist(lapply(exon.prog.files[[1]][,1], function(x) substr(x, nchar(x) - 1 + 1, nchar(x))))
-# test <- vector("list", length(exon.prog.files[[1]][,1]))
-
-# chr <- unlist(lapply(ep.names, function(x) gsub(":|_", "", substr(x, 4 , 5))))
-# start <- unlist(lapply(ep.names, function(x) gsub("^.*\\:", "", gsub("\\-.*", "", x))))
-# end <- unlist(lapply(ep.names, function(x) gsub("\\:.*", "", gsub("^.*\\-", "", substr(x, 1, nchar(x) - 1)))))
-# upordown <- unlist(lapply(ep.names, function(x) substr(x, nchar(x) - 1 + 1, nchar(x))))
-# ep <- cbind(chr, start, end, upordown)
-
-# genes.subset <- genecoord[which(genecoord$chr == ep[1,1] & genecoord$upordown == ep[1,4]),]
-# gene.name.subset <- cords[which(names(cords) %in% unique(genes.subset[,1]))]
-# test <- do.call(cbind, gene.name.subset)
-# colnames(test) <- gsub("\\.*", "", colnames(test))
-# which(test %in% paste(ep[1, 2], ep[1, 3], sep = "-"))
