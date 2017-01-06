@@ -1,5 +1,5 @@
 # set working directory --------------------------------------
-# setwd("/Users/nasim/Documents/thesis/R")
+# setwd(getwd())
 # -----------------------------------------------------------
 usePackage <- function(p) 
 {
