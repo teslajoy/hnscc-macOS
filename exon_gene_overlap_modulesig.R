@@ -112,7 +112,6 @@ lapply(seq_along(the.list.lightyellow), function(i){
   write.table(rownames(the.list.lightyellow[[i]]) , file = paste("co-spliceEx/ssig_nonpreserved/lightyellow_nonprog/",names(the.list.lightyellow)[[i]] ,".txt", sep = ""), quote = F, sep = "\n", append = F, row.names = F, col.names = F)
 })
 
-
 lapply(seq_along(the.list.purple), function(i){
   write.table(rownames(the.list.purple[[i]]) , file = paste("co-spliceEx/ssig_nonpreserved/purple_prog/",names(the.list.purple)[[i]] ,".txt", sep = ""), quote = F, sep = "\n", append = F, row.names = F, col.names = F)
 })
