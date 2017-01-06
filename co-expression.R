@@ -1,26 +1,28 @@
 # set working directory --------------------------------------
 # setwd(getwd())
-# -----------------------------------------------------------
+# ------------------------------------------------------------
 usePackage <- function(p) 
 {
   if (!is.element(p, installed.packages()[,1]))
     install.packages(p, dep = TRUE)
   require(p, character.only = TRUE)
 }
-usePackage("WGCNA")
-usePackage("openxlsx")
-usePackage("readxl")
-usePackage("flashClust")
-usePackage("cluster")
-usePackage("affy")
-usePackage("stats")
-usePackage("limma")
+  
+# usePackage("WGCNA")
+# usePackage("openxlsx")
+# usePackage("readxl")
+# usePackage("flashClust")
+# usePackage("cluster")
+# usePackage("affy")
+# usePackage("stats")
+# usePackage("limma")
 # install.packages("BiocInstaller",repos="https://bioconductor.org/packages/3.2/bioc")
 # source("http://bioconductor.org/biocLite.R")
 # biocLite("multtest")
 # biocLite("edgeR")
-usePackage("psych")
+# usePackage("psych")
 
+# ------------------------------------------------------------
 library(WGCNA)
 library(openxlsx)
 library(readxl)
@@ -41,8 +43,11 @@ library(limma)
 library(gridExtra)
 library(grid)
 library(gtable)
+library(pheatmap)
+library(RColorBrewer)
+library(reshape)
 
-
+#  --------------------------------------------------------
 options(stringsAsFactors = FALSE)
 # DE and HC ------------------------------------------------
 gene.prog <- read.delim(file = "co-expression_2/output/genesprog_HC.txt")
@@ -283,7 +288,6 @@ system.time( bnet <- blockwiseConsensusModules(
   saveTOMs = TRUE, 
   verbose = 5))
 system(command = "say job done!")
-
 # user      system  elapsed 
 # 308.758  21.787 242.918 
 
@@ -294,8 +298,8 @@ bmoduleLabels <- bnet$colors
 bmoduleColors <- labels2colors(bmoduleLabels)
 bconsTree <- bnet$dendrograms[[1]]
 
-#bwLabels <- matchLabels(bmoduleColors, bmoduleLabels, pThreshold = 1e-7)
-#bwColors <- labels2colors(bwLabels)
+# bwLabels <- matchLabels(bmoduleColors, bmoduleLabels, pThreshold = 1e-7)
+# bwColors <- labels2colors(bwLabels)
 table(bmoduleColors)
 
 btb <- table(bmoduleColors)
@@ -337,6 +341,7 @@ grid.arrange(bmodule.summary)
 colnames(bconsMEs[[1]]$data) <- labels2colors(as.numeric(gsub("ME", "", colnames(bconsMEs[[1]]$data))))
 colnames(bconsMEs[[2]]$data) <- labels2colors(as.numeric(gsub("ME", "", colnames(bconsMEs[[2]]$data))))
 
+ # -------------------------------------------------------------------------------------
 # scaling data to fit elipsoid of 1st PCA eigengene and why
 # http://stats.stackexchange.com/questions/110508/questions-on-pca-when-are-pcs-independent-why-is-pca-sensitive-to-scaling-why
 # http://stats.stackexchange.com/questions/22329/how-does-centering-the-data-get-rid-of-the-intercept-in-regression-and-pca/22331#22331
@@ -699,7 +704,7 @@ dev.off()
 # The Fisher test checks whether some modules have more significant genes than expected by chance.
 # The expectation is that, if no module is preferentially affected, then the signif genes will be 
 # distributed among all modules at random. However, if some modules contain more signif genes than 
-# their "fair share", then those modules are flagged as affected.
+# their "fair share", they are flagged as affected.
 #-------------------------------------------------------------
 modules.enrich.DEDV <- lapply(seq_along(unique(bmoduleColors)), function(i) {
   x <- factor(colnames(all.genes) %in% colnames(gene.prog[, which(bmoduleColors %in% unique(bmoduleColors)[i])]), levels = c("TRUE", "FALSE"))
@@ -815,6 +820,9 @@ dev.off()
 
 #----------------------------------------------------------------------
 # extract modules gene names 
+# adj is only used to extract gene names in WGCNA network adjacency based on expr data
+# row.names(cluster.prog$adj)[1:5]
+# colnames(gene.prog)[1:5] same genes as adjacency matrix                  
 # --------------------------------------------------------------------
 for(i in 1:length(unique(bmoduleColors))){
   the.module <- unique(bmoduleColors)[i]
@@ -892,6 +900,7 @@ prog.tkME <- lapply(seq_along(prog.topPoskME[!names(prog.topPoskME) %in% "kME.gr
 
 prog.tkME <- do.call(cbind, prog.tkME)
 openxlsx::write.xlsx(prog.tkME, rowNames = F, file = "co-expression_3/consensus/topkME.xlsx")
+                    
 # -----------------------------------------------------------------------------
 # Comparing eigengene networks in progressor and Non-progressor conditions ----
 # https://labs.genetics.ucla.edu/horvath/CoexpressionNetwork/Rpackages/WGCNA/Tutorials/Consensus-EigengeneNetworks.pdf
@@ -1110,7 +1119,7 @@ for(i in c(11:length(colorlevels))){
 }
 dev.off()
 
-#------kme and GS 
+# kME and GS ------------------------------------------------------------------------
 pdf(file = "co-expression_3/consensus/consensus_GSalcohol_KME.pdf", wi = 13, he = 9)
 par(mfrow = c(2, as.integer(0.5 + 10 / 2)))
 par(mar = c(4,5,3,1))
@@ -1183,7 +1192,7 @@ for(i in 1:length(names(proggenes.highGS.highkwithin))){
 }
 
 #---------------------------------------------------------------------------------
-# high KME and smoking 
+# high kME and pack years risk factor correlates 
 #---------------------------------------------------------------------------------
 proggenes.highGS.highkwithin <- lapply(names(bdatKME.prog), function(x){
   the.module <- x
@@ -1211,7 +1220,7 @@ for(i in 1:length(names(proggenes.highGS.highkwithin))){
 }
 
 #---------------------------------------------------------------------------------
-# alcohol and smoking 
+# high kME and pack years or drink per day risk factors correlates 
 #---------------------------------------------------------------------------------
 proggenes.highGS.highkwithin <- lapply(names(bdatKME.prog), function(x){
   the.module <- x
@@ -1287,7 +1296,7 @@ pdf(file = "co-expression_3/consensus/sample_pheno_overlap.pdf", wi = 13, he = 9
 dev.off()
 
 # -------------------------------------------------------------------------------------------
-#  extract samples driving ME's in modules  
+#  extract samples driving ME's in modules  (possible outlier?)
 # -------------------------------------------------------------------------------------------
 datME <- bnet$multiMEs[[1]]$data
 rownames(datME) <- rownames(gene.prog)
@@ -1337,7 +1346,7 @@ TOM <- TOMsimilarityFromExpr(gene.prog, power = 5)
 TOM.nonprog <- TOMsimilarityFromExpr(gene.nonprog, power = 6)
 
 # Co-expression DE/DV/DW modules from net-analysis 
-#modules <- c("brown","turquoise","pink","purple", "black", "salmon","grey60", "blue", "lightyellow")
+# modules <- c("brown","turquoise","pink","purple", "black", "salmon","grey60", "blue", "lightyellow")
 modules <- c("turquoise")
 probes <- names(gene.prog)
 inModule <- is.finite(match(bmoduleColors, modules))
@@ -1388,8 +1397,8 @@ labeledHeatmap(Matrix = moduleTraitCor,
                main = paste(""))
 
 # -----------------------------------------------------------------
-# KM curve of prog vs unprog 
-library(survival)
+# Kaplan Meier curve of prog vs unprog condition 
+# library(survival)
 # ----------------------------------------------------------------
 annot.clinical.all <- read_excel("Data/HNSCC_Table1_Data.xlsx", col_names = TRUE, col_types = NULL, na = "", skip = 0)
 annot.clinical.all[[1]] <- gsub(".", '-', annot.clinical.all[[1]], fixed = T)
@@ -1455,7 +1464,7 @@ names(dat) <- c("variable", "documentation")
 ggplot(dat, aes(documentation, fill=documentation)) + geom_bar() + facet_grid(. ~ variable) + xlab("") + ylab("Frequency")
 
 # ---------------------------------------------------------
-# DE , DV, DW heatmaps 
+# DE, DV,and DW heatmaps for visual QA/QC
 # ---------------------------------------------------------
 unique(raw.clinial.dat$anatomic_organ_subdivision)
 unique(annot.clinical$anatomic_organ_subdivision)
@@ -1469,21 +1478,16 @@ np.o <- annot.clinical$bcr.patient.barcode[which(annot.clinical$anatomic_organ_s
 np.l <- annot.clinical$bcr.patient.barcode[which(annot.clinical$anatomic_organ_subdivision == "Larynx" & annot.clinical$bcr.patient.barcode %in% rownames(gene.nonprog))]
 np.op <- annot.clinical$bcr.patient.barcode[which(annot.clinical$anatomic_organ_subdivision == "Oropharynx" & annot.clinical$bcr.patient.barcode %in% rownames(gene.nonprog))]
 
-
-
 prog.unlogged <- (2^gene.prog) - 1 # unlog and revert shift 
 prog.means <- apply(prog.unlogged , 2, mean)
 nonprog.unlogged <- (2^gene.nonprog) - 1 # unlog and revert shift 
 nonprog.means <- apply(nonprog.unlogged , 2, mean)
 gene.means <- cbind(prog.means, nonprog.means)
 
-
-
 de.dv.dw <- read_excel("co-expression_3/consensus/netDiffAnalysis_genes.xlsx", col_names = TRUE, col_types = NULL, na = "", skip = 0)
 dw <- de.dv.dw$DW_GENES[!is.na(de.dv.dw$DW_GENES)]
 de <- de.dv.dw$DE_GENES[!is.na(de.dv.dw$DE_GENES)]
 dv <- de.dv.dw$DV_GENES[!is.na(de.dv.dw$DV_GENES)]
-
 
 dw.nonprog <- as.matrix(gene.nonprog[rownames(gene.nonprog) %in% np.o, colnames(gene.nonprog) %in% dw])
 dw.prog <- as.matrix(gene.prog[rownames(gene.prog) %in% p.o, colnames(gene.prog) %in% dw])
@@ -1503,8 +1507,8 @@ heatmap.2(dw.prog, Rowv=NA, Colv=NA, col = heat.colors(256), scale="column", mar
 #write.table(as.data.frame(de) , file = "co-expression_3/netanalysis/de.txt", quote = F, sep = "\n", append = F, row.names = F, col.names = F)
 #write.table(as.data.frame(dv) , file = "co-expression_3/netanalysis/dv.txt", quote = F, sep = "\n", append = F, row.names = F, col.names = F)
 
-library("pheatmap")
-library("RColorBrewer")
+# library("pheatmap")
+# library("RColorBrewer")
 all.dw <- cbind(t(dw.prog), t(dw.nonprog))
 
 pheatmap(all.dw, cluster_cols = F, cluster_rows = F)
@@ -1524,7 +1528,7 @@ the.test <- cbind(c(rep("progressor", 68) , rep("nonprogressor", 161)), the.test
 names(the.test)[1] <- "condition"
 the.test[,2] <- NULL
 
-library(reshape)
+# library(reshape)
 testing <- reshape::melt(the.test[,c("condition",dw)], id.var = "condition")
 rm(testing)
 
@@ -1533,8 +1537,6 @@ annotation <- data.frame(testing = factor(0:68 == 1, labels = c("progressor", "n
 pheatmap(t(the.test[which(the.test$condition %in%"progressor" & rownames(the.test) %in% p.o),dw]), cluster_rows = T, cluster_cols = F)
 pheatmap(t(the.test[which(the.test$condition %in%"progressor" & rownames(the.test) %in% p.l),dw]), cluster_rows = T, cluster_cols = F)
 pheatmap(t(the.test[which(the.test$condition %in%"progressor" & rownames(the.test) %in% p.op),dw]), cluster_rows = T, cluster_cols = F)
-
-
 
 pheatmap(t(the.test[which(the.test$condition %in%"progressor"), dw]), cluster_rows = T, cluster_cols = T)
 pheatmap(t(the.test[which(the.test$condition %in%"nonprogressor"),dw]), cluster_rows = T, cluster_cols = T)
@@ -1553,7 +1555,7 @@ tttest <- melt(the.test)
 DEgenes.paper <- as.data.frame(DEgenes.paper)
 # write.table(DEgenes.paper , file = "co-expression_3/netanalysis/paper_degenes.txt", quote = F, sep = "\n", append = F, row.names = F, col.names = F)
 DEgenes.paper[grep("IT" , DEgenes.paper),]
-#the.test[rownames(the.test) %in% c("TCGA-CR-5248", "TCGA-CN-5358", "TCGA-BA-5559", "TCGA-BA-4074") ,1:2]
+# the.test[rownames(the.test) %in% c("TCGA-CR-5248", "TCGA-CN-5358", "TCGA-BA-5559", "TCGA-BA-4074") ,1:2]
 summary(the.test[which(the.test$condition %in% "progressor"), "TNFRSF1B"])
 
 low.median <- c("TCGA-BA-7269", "TCGA-CV-A45Q", "TCGA-D6-A6EM", "TCGA-CV-5973", "TCGA-CV-6436", "TCGA-D6-A6ES", "TCGA-D6-A6EK")
