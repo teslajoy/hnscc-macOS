@@ -464,10 +464,11 @@ pdf(file = "co-expression_3/consensus/kME_ranges.pdf", wi = 12, he = 9)
 dev.off()
 
 ##############################################################################
-# 1. How many genes are DE/DV/DW?
-# 2. How many genes are in each module?
+# 1. How many genes are DE/DV/DW between progressors and nonprogressors?
+# 2. How many DE/DV/DW genes are in progressor modules?
 # 3. What is the overlap between each module and the DE/DV/DW genes?
-# 4. Is the overlap greater that what can be expected by chance? This is what the Fisher exact test does.
+# 4. Is the overlap of each progressor modules genes with DV/DE/DW genes 
+#    greater than expected by chance? This is what the Fisher exact test does.
 # ----------------------------------------------------------
 # DE Which genes are differentially expressed based on intensity (mean)
 # optain p-values for mean differences between consditions 
