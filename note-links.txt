@@ -1,0 +1,47 @@
+# ———————————————————————————————————————————
+# Study Note links: 
+# ———————————————————————————————————————————
+
+# Expression Data:
+
+TCGA http://cancergenome.nih.gov/
+RPKM https://wiki.nci.nih.gov/display/TCGA/RNASeq+Version+2
+Educational RPKM and TPM http://www.rna-seqblog.com/rpkm-fpkm-and-tpm-clearly-explained/ 
+SDRF https://en.wikipedia.org/wiki/Sample_and_Data_Relationship_Format
+Normalized counts https://www.biostars.org/p/106127/
+log2(x + 1) https://labs.genetics.ucla.edu/horvath/CoexpressionNetwork/Rpackages/WGCNA/faq.html
+https://en.wikipedia.org/wiki/Variance-stabilizing_transformation
+PCA: https://en.wikipedia.org/wiki/Principal_component_analysis
+PCA assumptions http://arxiv.org/pdf/1404.1100v1.pdf
+PCA scale dependency https://uhra.herts.ac.uk/bitstream/handle/2299/715/S56.pdf?sequence=1
+understanding scale() in R http://stackoverflow.com/questions/20256028/understanding-scale-in-r
+
+# ———————————————————————————————————————————
+
+# Patient Demographics: 
+
+Matrix construction: 
+SDRF: Sample and Data Relationship Format, is a tab delaminated file describing the relationships 
+            between samples array data & etc. in a microarray experiment. 
+SDRF TCGAhg19June2011.txt file link exon chromosome locus to hgnc 
+01A:    solid tumor 
+
+# ———————————————————————————————————————————
+
+# Co-expression: 
+
+Hierarchical clustering average: https://en.wikipedia.org/wiki/Hierarchical_clustering
+bicor https://en.wikipedia.org/wiki/Biweight_midcorrelation
+Bonferroni correction: https://en.wikipedia.org/wiki/Bonferroni_correction Z scores 
+Remedies for data dragging https://en.wikipedia.org/wiki/Data_dredging
+
+# ———————————————————————————————————————————
+
+
+
+
+
+
+
+
+
