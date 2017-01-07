@@ -4,7 +4,8 @@
 
 # Expression Data:
 
-TCGA http://cancergenome.nih.gov/
+TCGA about http://cancergenome.nih.gov/
+TCGA molecular assay data types and level https://wiki.nci.nih.gov/display/TCGA/Data+Levels+and+Data+Types
 RPKM https://wiki.nci.nih.gov/display/TCGA/RNASeq+Version+2
 Educational RPKM and TPM http://www.rna-seqblog.com/rpkm-fpkm-and-tpm-clearly-explained/ 
 SDRF https://en.wikipedia.org/wiki/Sample_and_Data_Relationship_Format
