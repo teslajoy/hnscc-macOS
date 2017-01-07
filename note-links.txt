@@ -23,7 +23,7 @@ understanding scale() in R http://stackoverflow.com/questions/20256028/understan
 
 Matrix construction: 
 SDRF: Sample and Data Relationship Format, is a tab delaminated file describing the relationships 
-            between samples array data & etc. in a microarray experiment. 
+      between samples array data & etc. in a microarray experiment. 
 SDRF TCGAhg19June2011.txt file link exon chromosome locus to hgnc 
 01A:    solid tumor 
 
