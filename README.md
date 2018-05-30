@@ -3,11 +3,11 @@ We analyzed 229 patients’ samples from The Cancer Genome Atlas (TCGA) previous
 
 ## Publication 
 
-##### Frontiers Genomics - Systems Biology: ORIGINAL RESEARCH ARTICLE
+##### ```Frontiers Genomics - Systems Biology: ORIGINAL RESEARCH ARTICLE```
 ##### doi: 10.3389/fgene.2018.00183
 https://www.frontiersin.org/articles/10.3389/fgene.2018.00183
 
-##### OHSU SCHOLAR ARCHIVE: Full Thesis Research
+##### ```OHSU SCHOLAR ARCHIVE: Full Thesis Research```
 ##### doi:10.6083/M4WQ02WM
 https://digitalcommons.ohsu.edu/etd/3824/
 
