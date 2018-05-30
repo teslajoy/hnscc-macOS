@@ -11,7 +11,7 @@ https://www.frontiersin.org/articles/10.3389/fgene.2018.00183
 ##### doi:10.6083/M4WQ02WM
 https://digitalcommons.ohsu.edu/etd/3824/
 
-### Step-by-step study workflow for identification of progressor gene signatures 
+## Step-by-step study workflow for identification of progressor gene signatures 
 ![alt tag](img/workflow.png)
 
 ## Dependencies 
