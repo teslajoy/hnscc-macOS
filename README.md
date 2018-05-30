@@ -1,5 +1,15 @@
 ## Coexpression and CoSpliceEx weighted network analysis of Head and Neck Squamous Cell Carcinoma (HNSCC). 
-We analyzed 229 patients’ samples from The Cancer Genome Atlas (TCGA) previously annotated by Bornstein et al (2016) on their progression status. https://doi.org/10.6083/M4WQ02WM 
+We analyzed 229 patients’ samples from The Cancer Genome Atlas (TCGA) previously annotated by Bornstein et al (2016) on their progression status. 
+
+## Publication 
+
+##### - Frontiers Genomics - Systems Biology: ORIGINAL RESEARCH ARTICLE
+##### doi: 10.3389/fgene.2018.00183
+https://www.frontiersin.org/articles/10.3389/fgene.2018.00183
+
+##### - OHSU SCHOLAR ARCHIVE: Full Thesis Research
+##### doi:10.6083/M4WQ02WM
+https://digitalcommons.ohsu.edu/etd/3824/
 
 ### Step-by-step study workflow for identification of progressor gene signatures 
 ![alt tag](img/workflow.png)
