@@ -1,8 +1,3 @@
-# set working directory --------------------------------------
-# setwd("/Users/nasim/Documents/thesis_prelim/HNSC/R/")
-# setwd(getwd())
-
-# install packages as required---------------------------------
 usePackage <- function(p) 
 {
   if (!is.element(p, installed.packages()[,1]))

@@ -1,6 +1,3 @@
-# set working directory ------------------------------------------------------
-# setwd(getwd())
-# ----------------------------------------------------------------------------
 usePackage <- function(p)
 {
   if (!is.element(p, installed.packages()[,1]))

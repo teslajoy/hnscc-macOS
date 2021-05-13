@@ -1,4 +1,3 @@
-#setwd("/Users/nasim/Documents/thesis_prelim/HNSC/R")
 #http://statisticalrecipes.blogspot.com/2012/08/biomart-find-gene-name-using-chromosome.html
 library(biomaRt) # map exon to gene by chromosome location 
 
