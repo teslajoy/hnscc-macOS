@@ -23,3 +23,7 @@ R version 3.3.1 or 3.3.2
 * <a href="http://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-015-2359-6" target="_blank">Bornstein et al. study (2016)</a>
 * <a href="http://cancergenome.nih.gov/abouttcga" target="_blank">TCGA</a>
 * Hadley Wickham <a href="http://hadley.nz/" target="_blank"> Data Science, Data import, and R software engineering libraries</a> 
+
+## Note
+This code was written over a short period of time to complete educational milestones and should not be taken as a computationally automated process/pipeline. However, each code segment (between code comments) may be repurposed. The publication requires this code to be public. 
+
